@@ -1,0 +1,95 @@
+// Clase Matriz
+public class Matriz {
+    private int[][] valores;
+
+    // Constructor que crea una matriz con dimensiones específicas
+    public Matriz(int filas, int columnas) {
+        valores = new int[filas][columnas];
+    }
+
+    // Método para llenar la matriz
+    public void llenarMatriz() {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        
+        for (int i = 0; i < valores.length; i++) {
+            for (int j = 0; j < valores[i].length; j++) {
+                System.out.print("Ingrese valor para posición [" + i + "][" + j + "]: ");
+                valores[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    // Método para sumar dos matrices
+    public Matriz sumar(Matriz otra) {
+        // Verificar dimensiones
+        if (this.valores.length != otra.valores.length || 
+            this.valores[0].length != otra.valores[0].length) {
+            System.out.println("Error: Las matrices deben tener las mismas dimensiones");
+            return null;
+        }
+
+        // Crear matriz de resultado
+        Matriz resultado = new Matriz(valores.length, valores[0].length);
+        
+        // Realizar suma
+        for (int i = 0; i < valores.length; i++) {
+            for (int j = 0; j < valores[i].length; j++) {
+                resultado.valores[i][j] = this.valores[i][j] + otra.valores[i][j];
+            }
+        }
+        
+        return resultado;
+    }
+
+    // Método para imprimir la matriz
+    public void imprimir() {
+        for (int[] fila : valores) {
+            for (int valor : fila) {
+                System.out.print(valor + "\t");
+            }
+            System.out.println();
+        }
+    }
+}
+
+// Clase Principal de Prueba para Matrices
+public class MainMatriz {
+    public static void main(String[] args) {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+
+        // Solicitar dimensiones de las matrices
+        System.out.print("Ingrese número de filas: ");
+        int filas = scanner.nextInt();
+        System.out.print("Ingrese número de columnas: ");
+        int columnas = scanner.nextInt();
+
+        // Crear dos matrices
+        Matriz matriz1 = new Matriz(filas, columnas);
+        Matriz matriz2 = new Matriz(filas, columnas);
+
+        // Llenar matrices
+        System.out.println("\nLlenado de la primera matriz:");
+        matriz1.llenarMatriz();
+        
+        System.out.println("\nLlenado de la segunda matriz:");
+        matriz2.llenarMatriz();
+
+        // Mostrar matrices originales
+        System.out.println("\nMatriz 1:");
+        matriz1.imprimir();
+        
+        System.out.println("\nMatriz 2:");
+        matriz2.imprimir();
+
+        // Sumar matrices
+        Matriz matrizSuma = matriz1.sumar(matriz2);
+        
+        // Mostrar resultado
+        if (matrizSuma != null) {
+            System.out.println("\nResultado de la suma:");
+            matrizSuma.imprimir();
+        }
+
+        scanner.close();
+    }
+}
