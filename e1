@@ -1,0 +1,94 @@
+import java.util.Scanner;
+
+public class Temperatura {
+    // Atributos
+    private double[] temperaturas;
+
+    // Constructor
+    public Temperatura() {
+        temperaturas = new double[24];
+    }
+
+    // Método para ingresar temperaturas
+    public void ingresarTemperaturas() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese las temperaturas de 24 horas:");
+        for (int i = 0; i < temperaturas.length; i++) {
+            System.out.print("Hora " + (i + 1) + ": ");
+            temperaturas[i] = scanner.nextDouble();
+        }
+    }
+
+    // Método para calcular la temperatura media
+    public double calcularMedia() {
+        double suma = 0;
+        for (double temp : temperaturas) {
+            suma += temp;
+        }
+        return suma / temperaturas.length;
+    }
+
+    // Método para encontrar la temperatura máxima
+    public double calcularMaxima() {
+        double maxima = temperaturas[0];
+        for (double temp : temperaturas) {
+            if (temp > maxima) {
+                maxima = temp;
+            }
+        }
+        return maxima;
+    }
+
+    // Método para encontrar la temperatura mínima
+    public double calcularMinima() {
+        double minima = temperaturas[0];
+        for (double temp : temperaturas) {
+            if (temp < minima) {
+                minima = temp;
+            }
+        }
+        return minima;
+    }
+
+    // Método para mostrar resultados
+    public void mostrarResultados() {
+        System.out.println("Temperatura media: " + calcularMedia());
+        System.out.println("Temperatura máxima: " + calcularMaxima());
+        System.out.println("Temperatura mínima: " + calcularMinima());
+    }
+}
+------------------------------CLASE-----------------------------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Temperatura temperatura = new Temperatura(); // Crear un objeto de Temperatura
+        boolean salir = false;
+
+        while (!salir) {
+            System.out.println("--- Menú ---");
+            System.out.println("1. Ingresar temperaturas");
+            System.out.println("2. Mostrar resultados");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    temperatura.ingresarTemperaturas();
+                    break;
+                case 2:
+                    temperatura.mostrarResultados();
+                    break;
+                case 3:
+                    salir = true;
+                    System.out.println("¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+    }
+}
