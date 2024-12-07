@@ -1,0 +1,85 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ListaClase {
+    // Atributos
+    private ArrayList<String> nombres;
+
+    // Constructor
+    public ListaClase() {
+        nombres = new ArrayList<>();
+    }
+
+    // Método para agregar nombres
+    public void agregarNombre(String nombre) {
+        nombres.add(nombre);
+    }
+
+    // Método para buscar nombres por letra inicial
+    public void buscarPorLetra(char letra) {
+        System.out.println("Nombres que empiezan con la letra '" + letra + "':");
+        boolean encontrado = false;
+        for (String nombre : nombres) {
+            if (nombre.charAt(0) == letra) {
+                System.out.println("- " + nombre);
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("No se encontraron nombres con esa letra.");
+        }
+    }
+
+    // Método para mostrar todos los nombres
+    public void mostrarNombres() {
+        System.out.println("Lista completa de nombres:");
+        for (String nombre : nombres) {
+            System.out.println("- " + nombre);
+        }
+    }
+}
+-----------------------------------------CLASE-------------------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ListaClase listaClase = new ListaClase(); // Crear un objeto de ListaClase
+        boolean salir = false;
+
+        while (!salir) {
+            System.out.println("\n--- Menú ---");
+            System.out.println("1. Agregar nombre");
+            System.out.println("2. Buscar por letra inicial");
+            System.out.println("3. Mostrar todos los nombres");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea
+
+            switch (opcion) {
+                case 1:
+                    System.out.print("Ingrese el nombre completo: ");
+                    String nombre = scanner.nextLine();
+                    listaClase.agregarNombre(nombre);
+                    System.out.println("Nombre agregado correctamente.");
+                    break;
+                case 2:
+                    System.out.print("Ingrese una letra para buscar: ");
+                    char letra = scanner.nextLine().charAt(0);
+                    listaClase.buscarPorLetra(letra);
+                    break;
+                case 3:
+                    listaClase.mostrarNombres();
+                    break;
+                case 4:
+                    salir = true;
+                    System.out.println("¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+    }
+}
