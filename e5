@@ -1,0 +1,77 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class AdivinaNumero {
+    // Atributos
+    private int numeroSecreto;
+    private int intentos;
+
+    // Constructor
+    public AdivinaNumero() {
+        Random random = new Random();
+        numeroSecreto = random.nextInt(10) + 1;  // Genera un número entre 1 y 10
+        intentos = 0;
+    }
+
+    // Método para jugar
+    public void jugar() {
+        Scanner scanner = new Scanner(System.in);
+        int intento;
+
+        System.out.println("¡Bienvenido al juego de Adivina el Número!");
+        System.out.println("Intenta adivinar el número secreto entre 1 y 10.");
+        System.out.println("Escribe 0 para rendirte.");
+
+        while (true) {
+            System.out.print("Ingresa tu intento: ");
+            intento = scanner.nextInt();
+            intentos++;
+
+            if (intento == 0) {
+                System.out.println("Te has rendido. El número secreto era: " + numeroSecreto);
+                break;
+            }
+
+            if (intento < numeroSecreto) {
+                System.out.println("El número es más alto.");
+            } else if (intento > numeroSecreto) {
+                System.out.println("El número es más bajo.");
+            } else {
+                System.out.println("¡Felicidades! ¡Has adivinado el número!");
+                System.out.println("Número de intentos: " + intentos);
+                break;
+            }
+        }
+    }
+}
+...................................CLASE..............................................
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        AdivinaNumero juego = new AdivinaNumero(); // Crear un objeto del juego
+        boolean salir = false;
+
+        while (!salir) {
+            System.out.println("\n--- Menú de Juego ---");
+            System.out.println("1. Jugar a Adivina el Número");
+            System.out.println("2. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    juego.jugar();
+                    break;
+                case 2:
+                    salir = true;
+                    System.out.println("¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+    }
+}
