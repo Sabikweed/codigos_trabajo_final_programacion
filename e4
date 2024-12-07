@@ -1,0 +1,107 @@
+public class Producto {
+    // Atributos
+    private String nombre;
+    private int cantidad;
+    private double precio;
+
+    // Constructor
+    public Producto(String nombre, int cantidad, double precio) {
+        nombre = nombre;
+        cantidad = cantidad;
+        precio = precio;
+    }
+
+    // Método para obtener información del producto
+    public String toString() {
+        return String.format("Nombre:  | Cantidad:  | Precio: ", nombre, cantidad, precio);
+    }
+}
+--------------------------------------inventario----------------------------------------
+import java.util.ArrayList;
+
+public class Inventario {
+    // Atributos
+    private ArrayList<Producto> productos;
+
+    // Constructor
+    public Inventario() {
+        productos = new ArrayList<>();
+    }
+
+    // Método para agregar un producto
+    public void agregarProducto(String nombre, int cantidad, double precio) {
+        productos.add(new Producto(nombre, cantidad, precio));
+        System.out.println("Producto agregado con éxito.");
+    }
+
+    // Método para eliminar un producto
+    public void eliminarProducto(int indice) {
+        if (indice >= 0 && indice < productos.size()) {
+            Producto eliminado = productos.remove(indice);
+            System.out.println("Producto eliminado: " + eliminado.toString());
+        } else {
+            System.out.println("Índice inválido. No se pudo eliminar el producto.");
+        }
+    }
+
+    // Método para mostrar todos los productos
+    public void mostrarProductos() {
+        if (productos.isEmpty()) {
+            System.out.println("El inventario está vacío.");
+        } else {
+            System.out.println("\n--- Inventario ---");
+            for (int i = 0; i < productos.size(); i++) {
+                System.out.println((i + 1) + ". " + productos.get(i).toString());
+            }
+        }
+    }
+}
+------------------------------CLASE-----------------------------------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Inventario inventario = new Inventario(); // Crear el objeto del Inventario
+        boolean salir = false;
+
+        while (!salir) {
+            System.out.println("\n--- Menú de Gestión de Inventario ---");
+            System.out.println("1. Agregar Producto");
+            System.out.println("2. Eliminar Producto");
+            System.out.println("3. Ver Inventario");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea
+
+            switch (opcion) {
+                case 1:
+                    System.out.print("Ingrese el nombre del producto: ");
+                    String nombre = scanner.nextLine();
+                    System.out.print("Ingrese la cantidad: ");
+                    int cantidad = scanner.nextInt();
+                    System.out.print("Ingrese el precio: ");
+                    double precio = scanner.nextDouble();
+                    inventario.agregarProducto(nombre, cantidad, precio);
+                    break;
+                case 2:
+                    inventario.mostrarProductos();
+                    System.out.print("Seleccione el número del producto a eliminar: ");
+                    int indice = scanner.nextInt() - 1;
+                    inventario.eliminarProducto(indice);
+                    break;
+                case 3:
+                    inventario.mostrarProductos();
+                    break;
+                case 4:
+                    salir = true;
+                    System.out.println("¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+    }
+}
