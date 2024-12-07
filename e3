@@ -1,0 +1,101 @@
+import java.util.ArrayList;
+
+public class CajeroAutomatico {
+    // Atributos
+    private double saldo;
+    private ArrayList<String> historial;
+
+    // Constructor
+    public CajeroAutomatico() {
+        saldo = 0;
+        historial = new ArrayList<>();
+    }
+
+    // Método para consultar el saldo (pobreeeeeeeeee)
+    public double consultarSaldo() {
+        return saldo;
+    }
+
+    // Método para depositar dinero
+    public void depositar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
+            historial.add("Depósito: $" + monto);
+            System.out.println("Depósito exitoso de: $" + monto);
+        } else {
+            System.out.println("El monto debe ser positivo.");
+        }
+    }
+
+    // Método para retirar dinero $$$$
+    public void retirar(double monto) {
+        if (monto > saldo) {
+            System.out.println("Fondos insuficientes. Tu saldo es: $" + saldo);
+        } else if (monto <= 0) {
+            System.out.println("El monto debe ser mayor a cero.");
+        } else {
+            saldo -= monto;
+            historial.add("Retiro: $" + monto);
+            System.out.println("Retiro exitoso de: $" + monto);
+        }
+    }
+
+    // Método para mostrar el historial de transacciones
+    public void mostrarHistorial() {
+        if (historial.isEmpty()) {
+            System.out.println("No hay transacciones registradas.");
+        } else {
+            System.out.println("Historial de transacciones:");
+            for (String transaccion : historial) {
+                System.out.println("- " + transaccion);
+            }
+        }
+    }
+}
+---------------------CLASE----------------------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        CajeroAutomatico cajero = new CajeroAutomatico(); // Crear objeto del Cajero si no con q vamos a hacer poo xd
+        boolean salir = false;
+
+        while (!salir) {
+            System.out.println("--- Menú del Cajero Automático ---");
+            System.out.println("1. Consultar Saldo");
+            System.out.println("2. Depositar Dinero");
+            System.out.println("3. Retirar Dinero");
+            System.out.println("4. Ver Historial de Transacciones");
+            System.out.println("5. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    System.out.printf("Tu saldo actual es: ", cajero.consultarSaldo());
+                    break;
+                case 2:
+                    System.out.print("Ingresa la cantidad a depositar: ");
+                    double deposito = scanner.nextDouble();
+                    cajero.depositar(deposito);
+                    break;
+                case 3:
+                    System.out.print("Ingresa la cantidad a retirar: ");
+                    double retiro = scanner.nextDouble();
+                    cajero.retirar(retiro);
+                    break;
+                case 4:
+                    cajero.mostrarHistorial();
+                    break;
+                case 5:
+                    salir = true;
+                    System.out.println("Gracias por usar el cajero automático. ¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+    }
+}
